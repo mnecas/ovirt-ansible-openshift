@@ -1,0 +1,21 @@
+---
+galaxy_info:
+  author: Martin Necas
+  description: Role to install openshift on top of ovirt.
+  company: Red Hat, Inc.
+
+  license: Apache License 2.0
+
+  min_ansible_version: 2.9
+
+  platforms:
+  - name: EL
+    versions:
+    - 8
+  - name: Fedora
+    versions:
+    - all
+
+  galaxy_tags: [ovirt, rhv, rhev, virtualization]
+
+dependencies: []
