@@ -10,8 +10,6 @@ Requirements
 
  * Ansible version 2.9 or higher
  * Python SDK version 4.3 or higher
- * python3-jmespath or python2-jmespath
-
 
 Limitations
 -----------

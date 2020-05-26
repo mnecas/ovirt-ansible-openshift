@@ -1,1 +1,11 @@
 ---
+qcow_url: https://cloud.centos.org/centos/7/images/CentOS-7-x86_64-GenericCloud.qcow2
+template_name: coreos_template
+template_memory: 8GiB
+template_cpu: 4
+template_disk_size: 25GiB
+template_disk_storage: mydata
+ocp_profile:
+  cluster: production
+  state: running
+  template: coreos_template

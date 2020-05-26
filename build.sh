@@ -1,11 +1,11 @@
 #!/bin/bash
 
-VERSION="1.2.4"
+VERSION="1.0.0"
 MILESTONE=master
 RPM_RELEASE="0.1.$MILESTONE.$(date -u +%Y%m%d%H%M%S)"
 
-ROLE_NAME="ovirt.vm-infra"
-PACKAGE_NAME="ovirt-ansible-vm-infra"
+ROLE_NAME="ovirt.openshift"
+PACKAGE_NAME="ovirt-ansible-openshift"
 PREFIX=/usr/local
 DATAROOT_DIR=$PREFIX/share
 ROLES_DATAROOT_DIR=$DATAROOT_DIR/ansible/roles
@@ -13,8 +13,8 @@ DOC_DIR=$DATAROOT_DIR/doc
 PKG_DATA_DIR=${PKG_DATA_DIR:-$ROLES_DATAROOT_DIR/$PACKAGE_NAME}
 PKG_DATA_DIR_ORIG=${PKG_DATA_DIR_ORIG:-$PKG_DATA_DIR}
 PKG_DOC_DIR=${PKG_DOC_DIR:-$DOC_DIR/$PACKAGE_NAME}
-ROLENAME_LEGACY="${ROLENAME_LEGACY:-$ROLES_DATAROOT_DIR/ovirt-vm-infra}"
-ROLENAME_LEGACY_UPPERCASE="${ROLENAME_LEGACY_UPPERCASE:-$ROLES_DATAROOT_DIR/oVirt.vm-infra}"
+ROLENAME_LEGACY="${ROLENAME_LEGACY:-$ROLES_DATAROOT_DIR/ovirt-openshift}"
+ROLENAME_LEGACY_UPPERCASE="${ROLENAME_LEGACY_UPPERCASE:-$ROLES_DATAROOT_DIR/oVirt.openshift}"
 
 RPM_VERSION=$VERSION
 PACKAGE_VERSION=$VERSION
@@ -30,9 +30,9 @@ dist() {
    -e "s|@RPM_RELEASE@|$RPM_RELEASE|g" \
    -e "s|@PACKAGE_NAME@|$PACKAGE_NAME|g" \
    -e "s|@PACKAGE_VERSION@|$PACKAGE_VERSION|g" \
-   < ovirt-ansible-vm-infra.spec.in > ovirt-ansible-vm-infra.spec
+   < ovirt-ansible-openshift.spec.in > ovirt-ansible-openshift.spec
 
-  git ls-files | tar --files-from /proc/self/fd/0 -czf "$TARBALL" ovirt-ansible-vm-infra.spec
+  git ls-files | tar --files-from /proc/self/fd/0 -czf "$TARBALL" ovirt-ansible-openshift.spec
   echo "tar archive '$TARBALL' created."
 }
 

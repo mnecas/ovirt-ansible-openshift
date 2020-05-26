@@ -11,6 +11,24 @@
     when: ovirt_auth is undefined or not ovirt_auth
     register: loggedin
 
+  - name: Include set_default_facts
+    include_tasks: set_default_facts.yml
+
+  - name: Get template info
+    ovirt_template_info:
+      auth: "{{ ovirt_auth }}"
+      pattern: name={{ template_name }} and cluster={{ template_cluster }}
+    register: template_info
+
+  - name: Create template
+    include_role:
+      name: ovirt.image-template
+    when: not template_info.ovirt_templates
+
+  - name: Create VMs
+    include_role:
+      name: ovirt.vm-infra
+
   always:
     - name: Logout from oVirt
       ovirt_auth:

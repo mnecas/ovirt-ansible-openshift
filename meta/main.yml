@@ -16,6 +16,10 @@ galaxy_info:
     versions:
     - all
 
-  galaxy_tags: [ovirt, rhv, rhev, virtualization]
+  galaxy_tags:
+    - ovirt
+    - rhv
+    - rhev
+    - virtualization
 
 dependencies: []
