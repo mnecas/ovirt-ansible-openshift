@@ -22,6 +22,7 @@
 
   - name: Include create_template
     include_tasks: create_template.yml
+    when: not template_info.ovirt_templates
 
   - name: Create VMs
     include_role:
