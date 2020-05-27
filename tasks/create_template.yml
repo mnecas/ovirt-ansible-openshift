@@ -1,0 +1,24 @@
+- block:
+  - name: Download qcow2.xz file
+    get_url:
+      url: "{{ qcow_url_gz }}"
+      dest: /tmp
+    register: downloaded_file
+
+  - name: Extract downloaded QCOW image
+    command: "gunzip --force {{ downloaded_file.dest }}"
+
+  - name: Set qcow_url to extracted file
+    set_fact:
+      qcow_url: "file://{{ (downloaded_file.dest | splitext)[0] }}"
+  when: qcow_url_gz is defined and qcow_url is undefined
+
+- name: Create template
+  include_role:
+    name: ovirt.image-template
+  when: not template_info.ovirt_templates
+
+- name: Clear tmp image
+  file:
+    state: "absent"
+    path: "{{ downloaded_file.dest }}"
