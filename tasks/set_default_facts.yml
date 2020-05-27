@@ -1,8 +1,8 @@
 ---
 - name: Set default profile vms
   set_fact:
-    ocp_profile: "{{ ocp_profile | combine(ocp_defaults) }}"
-  when: ocp_defaults is defined
+    ocp_profile: "{{ ocp_profile | combine(ocp_vms) }}"
+  when: ocp_vms is defined
 
 - name: Set default template facts
   set_fact:

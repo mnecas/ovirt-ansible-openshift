@@ -20,10 +20,8 @@
       pattern: name={{ template_name }} and cluster={{ template_cluster }}
     register: template_info
 
-  - name: Create template
-    include_role:
-      name: ovirt.image-template
-    when: not template_info.ovirt_templates
+  - name: Include create_template
+    include_tasks: create_template.yml
 
   - name: Create VMs
     include_role:
