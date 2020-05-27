@@ -17,8 +17,3 @@
   include_role:
     name: ovirt.image-template
   when: not template_info.ovirt_templates
-
-- name: Clear tmp image
-  file:
-    state: "absent"
-    path: "{{ downloaded_file.dest }}"
