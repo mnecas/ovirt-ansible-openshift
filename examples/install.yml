@@ -7,7 +7,7 @@
     engine_user: admin@internal
     engine_password: 123456
 
-    ocp_defaults:
+    ocp_vms:
       storage_domain: "mynfs"
       cluster: "cluster"
       template_memory: 16GiB
