@@ -6,7 +6,7 @@ template_memory: 8GiB
 template_cpu: 4
 template_disk_size: 25GiB
 template_disk_storage: mydata
-ocp_vms:
+ocp_profile:
   cluster: production
   state: running
   template: coreos_template
