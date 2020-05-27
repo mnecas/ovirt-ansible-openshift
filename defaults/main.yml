@@ -1,12 +1,12 @@
 ---
 #qcow_url: https://cloud.centos.org/centos/7/images/CentOS-7-x86_64-GenericCloud.qcow2
 qcow_url_gz: https://releases-art-rhcos.svc.ci.openshift.org/art/storage/releases/rhcos-4.4/44.81.202003062006-0/x86_64/rhcos-44.81.202003062006-0-openstack.x86_64.qcow2.gz
-template_name: coreos_template
+template_name: rhcos_template
 template_memory: 8GiB
 template_cpu: 4
 template_disk_size: 25GiB
-template_disk_storage: mydata
+template_disk_storage: storage
 ocp_profile:
-  cluster: production
-  state: running
-  template: coreos_template
+  cluster: Default
+  state: present
+  template: rhcos_template

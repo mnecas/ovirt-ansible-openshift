@@ -16,4 +16,3 @@
 - name: Create template
   include_role:
     name: ovirt.image-template
-  when: not template_info.ovirt_templates
