@@ -9,8 +9,8 @@
 # Reason for this set_fact is that we cannot override deafult value in role by our defaults
 - name: Set default template facts
   set_fact:
-    template_cluster: "{{ ocp_profile['cluster'] | default(template_cluster) | default(omit) }}"
-    template_disk_storage: "{{ ocp_profile['storage_domain'] | default(template_disk_storage) | default(omit) }}"
+    template_cluster: "{{ template_cluster | ocp_profile['cluster'] | default('Default') }}"
+    template_disk_storage: "{{ template_disk_storage | ocp_profile['storage_domain'] | default('storage') }}"
 
     template_memory: "{{ template_memory | default(omit) }}"
     template_cpu: "{{ template_cpu | default(omit) }}"

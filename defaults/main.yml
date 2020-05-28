@@ -9,7 +9,6 @@ ocp_client_url: https://mirror.openshift.com/pub/openshift-v4/clients/ocp/latest
 template_memory: 8GiB
 template_cpu: 4
 template_disk_size: 25GiB
-template_disk_storage: storage
 template_nics:
   - name: nic1
     profile_name: lab
