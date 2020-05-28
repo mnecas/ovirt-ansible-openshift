@@ -19,3 +19,8 @@ ocp_profile:
   cluster: Default
   state: present
   template: rhcos_template
+
+
+vm_infra_create_single_timeout: 180
+vm_infra_create_poll_interval: 15
+vm_infra_create_all_timeout: "{{ vm_infra_create_single_timeout * (vms | length)|int }}"

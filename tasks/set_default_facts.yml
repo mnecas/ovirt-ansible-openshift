@@ -1,5 +1,4 @@
 ---
-
 # Combine ocp_profile with user input which will be used in vm-infra as profile
 - name: Set default profile vms
   set_fact:

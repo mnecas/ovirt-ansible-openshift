@@ -1,0 +1,42 @@
+- name: Wait for VMs to be added
+  async_status: "jid={{ job.ansible_job_id }}"
+  register: job_result
+  with_items: "{{ started_vms }}"
+  loop_control:
+    loop_var: job
+  when: started_vms is defined and started_vms != [] and previous_value != item[1]
+  until: job_result.finished
+  retries: "{{ (vm_infra_create_all_timeout|int // vm_infra_create_poll_interval) + 1  }}"
+  delay: "{{ vm_infra_create_poll_interval }}"
+
+- name: Read file '{{ item[1] }}' on remove host
+  slurp:
+    src: "{{ ocp_working_dir + '/'+item[1]+'.ign' }}"
+  register: mounts
+
+- name: Create {{ item[1] }} VM
+  ovirt_vm:
+    auth: "{{ ovirt_auth }}"
+    cluster: "{{ ocp_profile['cluster'] }}"
+    name: "{{ item[0]['name'] }}"
+    state: present
+    cloud_init_persist: True
+    cloud_init:
+      custom_script: "{{ mounts['content'] | b64decode | string }}"
+    timeout: "{{ vm_infra_create_single_timeout }}"
+  changed_when: false
+  async: "{{ vm_infra_create_single_timeout }}"
+  poll: 0
+  register: started_vm
+
+- set_fact:
+    started_vms: "{{ started_vms | default([]) + [started_vm] }}"
+  when: previous_value == item[1]
+
+- set_fact:
+    started_vms: "{{ [started_vm] }}"
+  when: previous_value != item[1]
+
+- name: Update previous_value 
+  set_fact:
+    previous_value: "{{ item[1] }}"

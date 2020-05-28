@@ -8,3 +8,5 @@ ocp_install_url: https://mirror.openshift.com/pub/openshift-v4/clients/ocp/lates
 ocp_client_url: https://mirror.openshift.com/pub/openshift-v4/clients/ocp/latest/openshift-client-linux.tar.gz
 
 ocp_working_dir: /tmp/ocp_config
+
+previous_value: 'bootstrap'

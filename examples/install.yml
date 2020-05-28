@@ -31,5 +31,7 @@
         ocp_vm_type: node
       - name: node2
         ocp_vm_type: node
+      - name: bootstrap
+        ocp_vm_type: bootstrap
   roles:
     - ovirt.openshift
