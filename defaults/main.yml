@@ -1,11 +1,21 @@
 ---
 #qcow_url: https://cloud.centos.org/centos/7/images/CentOS-7-x86_64-GenericCloud.qcow2
-qcow_url_gz: https://releases-art-rhcos.svc.ci.openshift.org/art/storage/releases/rhcos-4.4/44.81.202003062006-0/x86_64/rhcos-44.81.202003062006-0-openstack.x86_64.qcow2.gz
-template_name: rhcos_template
+#qcow_url_gz: https://releases-art-rhcos.svc.ci.openshift.org/art/storage/releases/rhcos-4.4/44.81.202003062006-0/x86_64/rhcos-44.81.202003062006-0-openstack.x86_64.qcow2.gz
+
+qcow_url_gz: https://mirror.openshift.com/pub/openshift-v4/dependencies/rhcos/4.4/latest/rhcos-4.4.3-x86_64-openstack.x86_64.qcow2.gz
+ocp_install_url: https://mirror.openshift.com/pub/openshift-v4/clients/ocp/latest/openshift-install-linux.tar.gz
+ocp_client_url: https://mirror.openshift.com/pub/openshift-v4/clients/ocp/latest/openshift-client-linux.tar.gz
+
 template_memory: 8GiB
 template_cpu: 4
 template_disk_size: 25GiB
 template_disk_storage: storage
+template_nics:
+  - name: nic1
+    profile_name: lab
+    #profile_name: ovirtmgmt
+    interface: virtio
+
 ocp_profile:
   cluster: Default
   state: present

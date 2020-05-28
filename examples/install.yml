@@ -6,7 +6,6 @@
     engine_url: https://server/ovirt-engine/api
     engine_user: admin@internal
     engine_password: 123456
-
     ocp_vms:
       storage_domain: "mynfs"
       cluster: "cluster"
@@ -15,6 +14,7 @@
     vms:
       - name: master1
         ocp_vm_type: master
+        memory: 32GiB
       - name: master2
         ocp_vm_type: master
       - name: master3

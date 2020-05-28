@@ -1,13 +1,21 @@
 ---
+
+# Combine ocp_profile with user input which will be used in vm-infra as profile
 - name: Set default profile vms
   set_fact:
     ocp_profile: "{{ ocp_profile | combine(ocp_vms) }}"
   when: ocp_vms is defined
 
+# Reason for this set_fact is that we cannot override deafult value in role by our defaults
 - name: Set default template facts
   set_fact:
     template_cluster: "{{ ocp_profile['cluster'] | default(template_cluster) | default(omit) }}"
     template_disk_storage: "{{ ocp_profile['storage_domain'] | default(template_disk_storage) | default(omit) }}"
+
+    template_memory: "{{ template_memory | default(omit) }}"
+    template_cpu: "{{ template_cpu | default(omit) }}"
+    template_disk_size: "{{ template_disk_size | default(omit) }}"
+    template_nics: "{{ template_nics | default(omit) }}"
 
 - name: Set profile to vms
   set_fact: 
