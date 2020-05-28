@@ -28,6 +28,9 @@
     include_role:
       name: ovirt.vm-infra
 
+  - name: Include install_ocp
+    include_tasks: install_ocp.yml
+
   always:
     - name: Logout from oVirt
       ovirt_auth:

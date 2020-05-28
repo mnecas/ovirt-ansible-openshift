@@ -9,8 +9,8 @@
 # Reason for this set_fact is that we cannot override deafult value in role by our defaults
 - name: Set default template facts
   set_fact:
-    template_cluster: "{{ template_cluster | ocp_profile['cluster'] | default('Default') }}"
-    template_disk_storage: "{{ template_disk_storage | ocp_profile['storage_domain'] | default('storage') }}"
+    template_cluster: "{{ template_cluster | default(ocp_profile['cluster']) | default('Default') }}"
+    template_disk_storage: "{{ template_disk_storage | default(ocp_profile['storage_domain']) | default('storage') }}"
 
     template_memory: "{{ template_memory | default(omit) }}"
     template_cpu: "{{ template_cpu | default(omit) }}"
@@ -20,3 +20,13 @@
 - name: Set profile to vms
   set_fact: 
     vms: "{{ vms | map('combine', {'profile':ocp_profile}) | list }}"
+
+- name: Read pull_secret_file and set it to pull_secret
+  set_fact:
+    ocp_config: "{{ ocp_config | combine({'pull_secret':lookup('file', pull_secret_file)})"
+  when: pull_secret_file is defined and pull_secret is undefined
+
+- name: Read pull_secret_file and set it to pull_secret
+  set_fact:
+    ocp_config: "{{ ocp_config | combine({'ssh_key':lookup('file', ssh_key_file)})"
+  when: ssh_key_file is defined and ssh_key is undefined

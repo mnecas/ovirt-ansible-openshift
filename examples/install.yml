@@ -6,11 +6,19 @@
     engine_url: https://server/ovirt-engine/api
     engine_user: admin@internal
     engine_password: 123456
+
+    ocp_config:
+      pull_secret: "secret"
+      ssh_key: "key"
+
+      pull_secret_file: "secret"
+      ssh_key_file: "key"
+      domain: "test"
+
     ocp_vms:
       storage_domain: "mynfs"
       cluster: "cluster"
       template_memory: 16GiB
-
     vms:
       - name: master1
         ocp_vm_type: master

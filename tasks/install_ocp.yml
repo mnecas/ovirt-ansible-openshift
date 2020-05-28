@@ -1,0 +1,60 @@
+- name: Create temporary workplace
+  file:
+    path: "{{ ocp_working_dir }}"
+    state: directory
+
+- name: Download ocp install and extract
+  unarchive:
+    src: "{{ ocp_install_url }}"
+    dest: "{{ ocp_working_dir}}"
+    remote_src: yes
+  register: install_file
+  when: false
+
+- name: Download ocp client and extract
+  unarchive:
+    src: "{{ ocp_client_url }}"
+    dest: "{{ ocp_working_dir}}"
+    remote_src: yes
+  register: client_file
+  when: false
+
+- name: Create install-cofng.yaml from template
+  template:
+    src: install-config.yaml.j2
+    dest: "{{ ocp_working_dir }}/install-config.yaml"
+
+- name: Create manifest from configs
+  command: "{{ ocp_working_dir }}/openshift-install create manifests --dir={{ ocp_working_dir }}"
+
+- name: Edit manifest
+  replace:
+    regexp: "mastersSchedulable: true"
+    path: "{{ ocp_working_dir }}/manifests/cluster-scheduler-02-config.yml"
+    replace: "mastersSchedulable: false"
+
+- name: Create manifest from configs
+  command: "{{ ocp_working_dir }}/openshift-install create ignition-configs --dir={{ ocp_working_dir }}"
+
+- block:
+  - name: Read file on remove host
+    slurp:
+      src: "{{ ocp_working_dir + '/'+item+'.ign' }}"
+    register: mounts
+
+  - name: Create bootstrap VM
+    ovirt_vm:
+      auth: "{{ ovirt_auth }}"
+      cluster: "{{ ocp_profile['cluster'] }}"
+      name: "ocp_bootstrap"
+      template: "{{ template_name }}"
+      state: present
+      cloud_init_persist: True
+      cloud_init:
+        custom_script: "{{ mounts['content'] | b64decode }}"
+  with_items:
+    - 'bootstrap'
+    - 'master'
+    - 'node'
+
+# TODO: Clear tmp workplace

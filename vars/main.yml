@@ -1,0 +1,10 @@
+---
+template_name: rhcos_template
+template_type: server
+template_operating_system: rhcos_x64
+template_seal: False
+
+ocp_install_url: https://mirror.openshift.com/pub/openshift-v4/clients/ocp/latest/openshift-install-linux.tar.gz
+ocp_client_url: https://mirror.openshift.com/pub/openshift-v4/clients/ocp/latest/openshift-client-linux.tar.gz
+
+ocp_working_dir: /tmp/ocp_config
