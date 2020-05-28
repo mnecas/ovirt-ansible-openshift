@@ -36,10 +36,10 @@
 
 - name: Create vms
   include_tasks: start_vms.yml
-  when: item[0]['ocp_vm_type'] == item[1]
+  when: item[0] == item[1]['ocp_vm_type']
   with_nested:
-    - '{{ vms }}'
     - ['bootstrap', 'master', 'worker']
+    - '{{ vms }}'
 
 
 # TODO: Clear tmp workplace
